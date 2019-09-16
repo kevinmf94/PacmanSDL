@@ -20,29 +20,51 @@ void Pacman::init()
 	logical_height = CELL_SIZE*MAP_H;
 }
 
+SDL_Rect Pacman::getRectSheet(int x, int y)
+{
+	return {
+		X_SHEET + CELL_SHEET * x,
+		Y_SHEET + CELL_SHEET * y,
+		CELL_SHEET,
+		CELL_SHEET
+	};
+}
+
 void Pacman::start()
 {
 	pacman_texture = AssetLoader::loadPNG("./Sprites/pacmanpsprite.png", renderer);
 	wall_texture = AssetLoader::loadPNG("./Sprites/pacman_separate/rosekane_148.png", renderer);
 	coin_texture = AssetLoader::loadPNG("./Sprites/pacman_separate/rosekane_0.png", renderer);
+
 	
 	//Wall
-	wall = new Asset(this, wall_texture, {0,0,20,20});
+	wall = new Asset(this);
+	wall->addFrame(wall_texture, {0,0,20,20});
 	wall->w = wall->h = CELL_SIZE;
 	
 	//Coin
-	coin = new Asset(this, coin_texture, {0,0,20,20});
+	coin = new Asset(this);
+	coin->addFrame(coin_texture, {0,0,20,20});
 	coin->w = coin->h = CELL_SIZE;
 	
-	
-	pacman = new Asset(this, pacman_texture, {453,0,20,15});
+	//Pacman
+	pacman = new Asset(this);
+	pacman->addFrame(pacman_texture, getRectSheet(0, 0));
+	pacman->addFrame(pacman_texture, getRectSheet(1, 0));
 	pacman->w = pacman->h = CELL_SIZE;
+	
+	//Ghost Red
+	ghostRed = new Asset(this);
+	ghostRed->addFrame(pacman_texture, getRectSheet(0, 4));
+	ghostRed->addFrame(pacman_texture, getRectSheet(1, 4));
+	ghostRed->w = ghostRed->h = CELL_SIZE;
 }
 
 void Pacman::update(double deltaTime)
 {
 	//Pacman movement
 	updatePacman();
+	updateGhostRed();
 }
 
 void Pacman::onEvent(SDL_Event event)
@@ -74,7 +96,7 @@ void Pacman::draw()
 {
 	clearScreen();
 	drawMap();
-	drawPacman();
+	drawPlayers();
 	updateScreen();
 }
 
@@ -102,11 +124,72 @@ void Pacman::updatePacman()
 	}
 }
 
-void Pacman::drawPacman()
+struct Coord {
+	int x, y;
+	int value;
+	inline bool operator() (const Coord& struct1, const Coord& struct2)
+	{
+		return (struct1.value < struct2.value);
+	}
+};
+
+bool ResolveMaze(std::vector<Coord>* solution, int x, int y, int dx, int dy)
 {
-	pacman->draw();
+	if(x == dx && y == dy)
+		return true;
+	
+	for(auto sol : (*solution))
+	{
+		if(sol.x == x && sol.y == y)
+			return false;
+	}
+	
+	std::vector<Coord> domain;
+	domain.push_back({x+1, y, abs((x+1)-dx)+abs((y-dy))});
+	domain.push_back({x-1, y, abs((x-1)-dx)+abs((y-dy))});
+	domain.push_back({x, y+1, abs(x-dx)+abs((y+1)-dy)});
+	domain.push_back({x, y-1, abs(x-dx)+abs((y-1)-dy)});
+	
+	std::sort(domain.begin(), domain.end(), Coord());
+	
+	solution->push_back({x,y});
+	if(MAP[y][x] != WALL)
+	{
+		for(Coord newItem : domain)
+		{
+			if(ResolveMaze(solution, newItem.x, newItem.y, dx, dy))
+				return true;
+		}
+	}
+	solution->pop_back();
+	
+	return false;
+}
+
+void Pacman::updateGhostRed()
+{
+	std::vector<Coord>* solution = new std::vector<Coord>();
+	ResolveMaze(solution, gRedX, gRedY, x, y);
+	
+	if (solution->size() > 1)
+	{
+		Coord result = (*solution)[1];
+		gRedX = result.x;
+		gRedY = result.y;
+	}
+	
+	free(solution);
+}
+
+void Pacman::drawPlayers()
+{
 	pacman->x = x*CELL_SIZE;
 	pacman->y = y*CELL_SIZE;
+	pacman->draw();
+	
+	ghostRed->x = gRedX*CELL_SIZE;
+	ghostRed->y = gRedY*CELL_SIZE;
+	ghostRed->draw();
 }
 
 void Pacman::drawMap()

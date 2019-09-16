@@ -3,6 +3,26 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "ResolveMaze(std::__1::vector&lt;Coord, std::__1::allocator&lt;Coord&gt; &gt;*, int, int, int, int):Pacman.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "MAP[y-1][x]">
+            </PersistentString>
+            <PersistentString
+               value = "MAP[y][x]">
+            </PersistentString>
+            <PersistentString
+               value = "MAP[y][x-1]">
+            </PersistentString>
+            <PersistentString
+               value = "MAP[y+1][x]">
+            </PersistentString>
+            <PersistentString
+               value = "MAP[y][x+1]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "AssetLoader::loadPNG(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;, SDL_Renderer*):AssetLoader.cpp">
          <PersistentStrings>
             <PersistentString

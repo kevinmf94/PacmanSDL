@@ -10,22 +10,25 @@
 #define Asset_hpp
 
 #include <stdio.h>
+#include <vector>
 #include <SDL2/SDL.h>
 #include "Game.hpp"
 
 class Asset {
 
 public:
-	Asset(Game* game, SDL_Texture* texture, SDL_Rect clip);
+	Asset(Game* game);
 	void draw();
+	void addFrame(SDL_Texture* texture, SDL_Rect rect);
 	
 	int x = 0, y = 0;
 	int w = -1, h = -1;
 	
 private:
-	SDL_Texture* texture;
+	int frame = 0;
+	std::vector<SDL_Texture*> textures;
+	std::vector<SDL_Rect> rects;
 	Game* game;
-	SDL_Rect clip;
 };
 
 #endif /* Asset_hpp */
