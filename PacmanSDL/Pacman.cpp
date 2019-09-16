@@ -24,10 +24,16 @@ void Pacman::start()
 {
 	pacman_texture = AssetLoader::loadPNG("./Sprites/pacmanpsprite.png", renderer);
 	wall_texture = AssetLoader::loadPNG("./Sprites/pacman_separate/rosekane_148.png", renderer);
+	coin_texture = AssetLoader::loadPNG("./Sprites/pacman_separate/rosekane_0.png", renderer);
 	
-	//Paredes
+	//Wall
 	wall = new Asset(this, wall_texture, {0,0,20,20});
 	wall->w = wall->h = CELL_SIZE;
+	
+	//Coin
+	coin = new Asset(this, coin_texture, {0,0,20,20});
+	coin->w = coin->h = CELL_SIZE;
+	
 	
 	pacman = new Asset(this, pacman_texture, {453,0,20,15});
 	pacman->w = pacman->h = CELL_SIZE;
@@ -67,7 +73,7 @@ void Pacman::onEvent(SDL_Event event)
 void Pacman::draw()
 {
 	clearScreen();
-	drawWalls();
+	drawMap();
 	drawPacman();
 	updateScreen();
 }
@@ -103,7 +109,7 @@ void Pacman::drawPacman()
 	pacman->y = y*CELL_SIZE;
 }
 
-void Pacman::drawWalls()
+void Pacman::drawMap()
 {
 	int i, j;
 	
@@ -111,11 +117,19 @@ void Pacman::drawWalls()
 	{
 		for(j = 0; j < MAP_W; j++)
 		{
-			if(MAP[i][j] == WALL)
+			int cell = MAP[i][j];
+			switch(cell)
 			{
-				wall->x = j*CELL_SIZE;
-				wall->y = i*CELL_SIZE;
-				wall->draw();
+				case WALL:
+					wall->x = j*CELL_SIZE;
+					wall->y = i*CELL_SIZE;
+					wall->draw();
+					break;
+				/*case COIN:
+					coin->x = j*CELL_SIZE;
+					coin->y = i*CELL_SIZE;
+					coin->draw();
+					break;*/
 			}
 		}
 	}
@@ -144,4 +158,17 @@ int Pacman::checkNewOrientation(int newOrientation)
 	}
 	
 	return orientation;
+}
+
+void Pacman::end()
+{
+	delete wall;
+	delete coin;
+	delete pacman;
+	
+	SDL_DestroyTexture(pacman_texture);
+	SDL_DestroyTexture(coin_texture);
+	SDL_DestroyTexture(wall_texture);
+	
+	Game::end();
 }

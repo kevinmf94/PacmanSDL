@@ -25,23 +25,27 @@ protected:
 	virtual void update(double deltaTime) override;
 	virtual void draw() override;
 	virtual void onEvent(SDL_Event event) override;
+	virtual void end() override;
 
 private:	
 	//Variables
 	SDL_Texture* pacman_texture;
 	SDL_Texture* wall_texture;
+	SDL_Texture* coin_texture;
 	
 	//Assets
 	Asset* wall;
 	Asset* pacman;
+	Asset* coin;
 	
 	//Pacman Variables
 	int x = 1, y = 1;
 	int orientation = RIGHT;
 	
 	//Pacman functions
-	void drawWalls();
+	void drawMap();
 	void drawPacman();
+	
 	int checkNewOrientation(int newOrientation);
 	void updatePacman();
 };

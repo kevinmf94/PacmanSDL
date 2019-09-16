@@ -118,6 +118,6 @@ void Game::play()
 	loadSDL();
 	start();
 	loop();
-	shutdownSDL();
 	end();
+	shutdownSDL();
 }
