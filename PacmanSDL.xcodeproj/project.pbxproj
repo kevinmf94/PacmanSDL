@@ -11,6 +11,7 @@
 		EE409E0A232968D800B5A702 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE409E08232968D800B5A702 /* Game.cpp */; };
 		EE409E0D23297C3800B5A702 /* AssetLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE409E0B23297C3800B5A702 /* AssetLoader.cpp */; };
 		EE409E102329988B00B5A702 /* Pacman.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE409E0E2329988B00B5A702 /* Pacman.cpp */; };
+		EE516EA4232EE5E00092CDB4 /* Asset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE516EA2232EE5E00092CDB4 /* Asset.cpp */; };
 		EECB571923283613001DD53F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EECB571823283613001DD53F /* main.cpp */; };
 		EECB572223283633001DD53F /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EECB572023283633001DD53F /* SDL2_image.framework */; };
 		EECB572323283633001DD53F /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EECB572123283633001DD53F /* SDL2.framework */; };
@@ -37,6 +38,9 @@
 		EE409E0C23297C3800B5A702 /* AssetLoader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AssetLoader.hpp; sourceTree = "<group>"; };
 		EE409E0E2329988B00B5A702 /* Pacman.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Pacman.cpp; sourceTree = "<group>"; };
 		EE409E0F2329988B00B5A702 /* Pacman.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Pacman.hpp; sourceTree = "<group>"; };
+		EE516EA2232EE5E00092CDB4 /* Asset.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Asset.cpp; sourceTree = "<group>"; };
+		EE516EA3232EE5E00092CDB4 /* Asset.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Asset.hpp; sourceTree = "<group>"; };
+		EE516EA5232EF4570092CDB4 /* PacmanMap.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PacmanMap.hpp; sourceTree = "<group>"; };
 		EECB571523283613001DD53F /* PacmanSDL */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PacmanSDL; sourceTree = BUILT_PRODUCTS_DIR; };
 		EECB571823283613001DD53F /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		EECB572023283633001DD53F /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
@@ -85,6 +89,9 @@
 				EE409E0C23297C3800B5A702 /* AssetLoader.hpp */,
 				EE409E0E2329988B00B5A702 /* Pacman.cpp */,
 				EE409E0F2329988B00B5A702 /* Pacman.hpp */,
+				EE516EA2232EE5E00092CDB4 /* Asset.cpp */,
+				EE516EA3232EE5E00092CDB4 /* Asset.hpp */,
+				EE516EA5232EF4570092CDB4 /* PacmanMap.hpp */,
 			);
 			path = PacmanSDL;
 			sourceTree = "<group>";
@@ -158,6 +165,7 @@
 				EECB571923283613001DD53F /* main.cpp in Sources */,
 				EE409E0A232968D800B5A702 /* Game.cpp in Sources */,
 				EE409E102329988B00B5A702 /* Pacman.cpp in Sources */,
+				EE516EA4232EE5E00092CDB4 /* Asset.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
