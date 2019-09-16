@@ -34,6 +34,9 @@ void Game::loadSDL()
 	
 	//Create renderer
 	renderer = SDL_CreateRenderer(window, -1, 0);
+	
+	if(logical_width > 0 && logical_height > 0)
+		SDL_RenderSetLogicalSize(renderer, logical_width, logical_height);
 }
 
 /**
@@ -54,6 +57,10 @@ void Game::clearScreen()
 {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
+}
+
+void Game::updateScreen()
+{
 	SDL_RenderPresent(renderer);
 }
 
@@ -72,11 +79,12 @@ void Game::loop()
 		last = now;
 		now = SDL_GetPerformanceCounter();
 		
-		deltaTime = (double) ((now-last) * 1000/ SDL_GetPerformanceFrequency());
+		deltaTime = (double) ((last-now) * 1000/ SDL_GetPerformanceFrequency());
+		
+		SDL_Delay(200);
 		
 		processEvents();
 		update(deltaTime);
-		clearScreen();
 		draw();
 	}
 }

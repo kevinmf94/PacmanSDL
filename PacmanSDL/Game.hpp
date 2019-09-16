@@ -17,6 +17,8 @@
 
 class Game {
 public:
+	SDL_Renderer* renderer;
+	
 	//Init all game
 	void play();
 	
@@ -25,15 +27,16 @@ protected:
 	bool exit = false;
 	SDL_Event event;
 	SDL_Window* window;
-	SDL_Renderer* renderer;
 	double deltaTime;
 	
 	//Window configuration variables
 	std::string windowName = "NoName";
 	int width = 640;
 	int height = 480;
+	int logical_width = -1;
+	int logical_height = -1;
 	int bpp = 32;
-	float frameRate = 33.3f;
+	float frameRate = 30;
 	
 	//Manage game loop template
 	virtual void init();
@@ -44,8 +47,9 @@ protected:
 	virtual void draw();
 	virtual void end();
 	
-	//Utils
+	//Basic functions to manage the screen
 	void clearScreen();
+	void updateScreen();
 	
 private:
 	//Events process
